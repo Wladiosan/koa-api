@@ -1,0 +1,3 @@
+START TRANSACTION;
+    ALTER TABLE "user" ADD CONSTRAINT user_email UNIQUE (email);
+COMMIT;
