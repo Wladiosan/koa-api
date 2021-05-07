@@ -1,9 +1,15 @@
 const Koa = require('koa')
+const cors = require('@koa/cors')
 const Router = require('koa-router')
-const globalRouter = require('./src/router')
 const bodyParser = require('koa-bodyparser')
 
+const globalRouter = require('./src/router')
+const passport = require('./src/libs/passport/koaPassport')
+
+passport.initialize()
+
 const app = new Koa()
+app.use(cors())
 app.use(bodyParser())
 
 // Глобальный обработчик ошибок
@@ -15,7 +21,10 @@ app.use(async (ctx, next) => {
         if (err.isJoi) {
             ctx.throw(400, err.details[0].message)
         }
-        ctx.throw(400, 'Something wrong')
+        if (err.isPassport) {
+            ctx.throw(400, err.message)
+        }
+        ctx.throw(err.status || 500, err.message)
     }
 })
 

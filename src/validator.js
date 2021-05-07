@@ -8,6 +8,12 @@ const schema = Joi.object({
     is_active: Joi.bool().required()
 })
 
+const create = Joi.object({
+    email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'ru'] } }),
+    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+})
+
 module.exports = {
-    schema
+    schema,
+    create
 }
