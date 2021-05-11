@@ -9,6 +9,8 @@ const router = new Router()
 router.post('/', UserValidator.signUp, UsersController.createUser)
 router.post('/sign-in', UserValidator.signIn, UsersController.signIn)
 
+router.get('/refresh/token', UsersController.refresh)
+
 router.get('/profile', passport.authenticate('jwt', {session: false}), UsersController.profile)
 router.post('/example', UserValidator.example, UsersController.example)
 

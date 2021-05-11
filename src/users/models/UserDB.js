@@ -17,7 +17,7 @@ class UserDB {
 
         if (!userResponse.rowCount) throw new Error(`User with email: ${email}, does not exist`)
 
-        return userResponse.rows[0]
+        return (new User(userResponse.rows[0]))
     }
 
     static async checkPassword(email, password) {
