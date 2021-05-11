@@ -48,7 +48,14 @@ class UserDB {
                 }
                 throw new Error(err.message)
             })
-        return (new User(createUserResponse.rows[0])).getInfo()
+        return new User(createUserResponse.rows[0])
+    }
+
+    static async userList() {
+        const userListResponse = await db.query('SELECT * FROM "user"')
+        const users = userListResponse.rows.map(userDb => new User(userDb))
+
+        return users
     }
 }
 

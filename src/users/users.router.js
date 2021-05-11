@@ -7,11 +7,14 @@ const UserValidator = require('./users.validator')
 const router = new Router()
 
 router.post('/', UserValidator.signUp, UsersController.createUser)
+router.get('/', passport.authenticate('jwt', {session: false}), UsersController.userList)
+
 router.post('/sign-in', UserValidator.signIn, UsersController.signIn)
 
 router.get('/refresh/token', UsersController.refresh)
 
 router.get('/profile', passport.authenticate('jwt', {session: false}), UsersController.profile)
-router.post('/example', UserValidator.example, UsersController.example)
+
+/*router.post('/example', UserValidator.example, UsersController.example)*/
 
 module.exports = router

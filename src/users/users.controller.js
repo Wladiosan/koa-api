@@ -25,7 +25,7 @@ class UsersController {
         const {first_name, last_name, active, email, password} = ctx.request.body
 
         ctx.status = 201
-        ctx.body = await UserDB.createUser(first_name, last_name, active, email, password)
+        ctx.body = (await (UserDB.createUser(first_name, last_name, active, email, password))).getInfo()
 
     }
 
@@ -64,6 +64,13 @@ class UsersController {
     static async profile(ctx) {
         ctx.body = {
             user: ctx.state.user
+        }
+    }
+
+    static async userList(ctx) {
+        const users = (await UserDB.userList()).map(user => user.getInfo())
+        ctx.body = {
+            users
         }
     }
 }
