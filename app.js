@@ -17,7 +17,7 @@ app.use(errorCatcher.errorCatcher)
 const router = new Router()
 const port = process.env.PORT || 3030
 
-router.use('/users', require('./src/users/users.router'))
+router.use('/', require('./src/users/users.router'))
 app.use(router.middleware())
 
 app.listen(port, () => {

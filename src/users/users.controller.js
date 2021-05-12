@@ -6,6 +6,14 @@ const {UserDB} = require('./models/UserDB')
 
 class UsersController {
 
+    static async checkBeforeRegistration(ctx) {
+        const {email, username, first_name, last_name} = ctx.request.body
+        ctx.body = await UserDB.checkBeforeRegistration(email, username, first_name, last_name)
+    }
+
+
+
+
     static async example(ctx) {
         const {body} = ctx.request
         ctx.body = {body}
@@ -27,6 +35,13 @@ class UsersController {
         ctx.status = 201
         ctx.body = (await (UserDB.createUser(first_name, last_name, active, email, password))).getInfo()
 
+    }
+
+    static async create(ctx) {
+        const {email, username, first_name, last_name, password } = ctx.request.body
+
+        ctx.status = 201
+        ctx.body = (await (UserDB.create(email, username, first_name, last_name, password))).getInfoUser()
     }
 
     static async refresh(ctx) {
