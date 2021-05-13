@@ -63,6 +63,12 @@ class UserDB {
         return {user: new User(user), flag: true}
     }
 
+    static async admin() {
+        const userListResponse = await db.query('SELECT * FROM "users"')
+        const users = userListResponse.rows.map(userDb => new User(userDb))
+
+        return users
+    }
 
     static async getUserById(id) {
         const userResponse = await db.query(`SELECT * FROM "user" WHERE id = ${id}`)
@@ -79,32 +85,6 @@ class UserDB {
 
         return (new User(userResponse.rows[0]))
     }
-
-    static async userList() {
-        const userListResponse = await db.query('SELECT * FROM "user"')
-        const users = userListResponse.rows.map(userDb => new User(userDb))
-
-        return users
-    }
-
-    /*static async createUser(first_name, last_name, active, email, password) {
-        const passwordHash = crypto.pbkdf2Sync(password, 'salt', 100000, 64, 'sha256').toString('hex')
-        const createUserResponse = await db.query(`
-        INSERT INTO "user" (first_name, last_name, is_active, email, password)
-        VALUES ('${first_name}', '${last_name}', ${active}, '${email}', '${passwordHash}') RETURNING *`)
-            .catch((err) => {
-                console.log(err)
-                if (err.constraint === 'user_email') {
-                    const error = new Error('User with the same email already exists')
-                    error.status = 400
-                    throw error
-                }
-                throw new Error(err.message)
-            })
-        return new User(createUserResponse.rows[0])
-    }*/
-
-
 }
 
 module.exports = {UserDB}

@@ -28,24 +28,14 @@ class UsersController {
         })(ctx, next)
     }
 
-
-
-
-
-    static async example(ctx) {
-        const {body} = ctx.request
-        ctx.body = {body}
+    static async admin(ctx) {
+        const users = (await UserDB.admin()).map(user => user.getInfoAdmin())
+        ctx.body = {
+            users
+        }
     }
 
 
-
-    static async createUser(ctx) {
-        const {first_name, last_name, active, email, password} = ctx.request.body
-
-        ctx.status = 201
-        ctx.body = (await (UserDB.createUser(first_name, last_name, active, email, password))).getInfo()
-
-    }
 
 
 

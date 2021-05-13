@@ -8,15 +8,15 @@ class User {
         this.is_active = dbRes.is_active
         this.categoryid = dbRes.categoryid
         this._paswword = dbRes.password
+        this.country = dbRes.country
+        this.status = dbRes.status
     }
 
     getInfo(idFlag = false) {
         const responseData = {
             email: this.email,
             first_name: this.first_name,
-            last_name: this.last_name,
-            /*is_active: this.is_active,
-            categoryid: this.categoryid*/
+            last_name: this.last_name
         }
 
         if (idFlag) responseData.id = this._id
@@ -33,6 +33,20 @@ class User {
         }
         if (idFlag) responseDate.id = this.id
         return responseDate
+    }
+
+    getInfoAdmin(idFlag = false) {
+        const responseData = {
+            email: this.email,
+            first_name: this.first_name,
+            last_name: this.last_name,
+            country: this.country,
+            status: this.status
+        }
+
+        if (idFlag) responseData.id = this._id
+
+        return responseData
     }
 
     getId() {
