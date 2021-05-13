@@ -9,7 +9,7 @@ const router = new Router()
 router.post('/', UserValidator.checkBeforeRegistration , UsersController.checkBeforeRegistration)
 router.post('create', UserValidator.create, UsersController.create)
 
-router.post('/sign-in', UserValidator.signIn, UsersController.signIn)
+router.post('sign-in', UserValidator.signIn, UsersController.signIn)
 
 
 

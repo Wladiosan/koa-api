@@ -11,12 +11,12 @@ const opts = {
 }
 
 module.exports = new LocalStrategy(opts, async (req, email, password, done) => {
-    UserDB.checkPassword(email, password).then((checkPasswordResponse) => {
-        if (!checkPasswordResponse.flag) {
-            return done({ message: checkPasswordResponse.message }, false)
+    UserDB.checkUser(email, password).then((checkUserResponse) => {
+        if (!checkUserResponse.flag) {
+            return done({ message: checkUserResponse.message }, false)
         }
 
-        const { user } = checkPasswordResponse
+        const { user } = checkUserResponse
 
         const accessToken = {
             id: user.getId(),

@@ -11,12 +11,11 @@ class UsersController {
         ctx.body = await UserDB.checkBeforeRegistration(email, username, first_name, last_name)
     }
 
+    static async create(ctx) {
+        const {email, username, first_name, last_name, password } = ctx.request.body
 
-
-
-    static async example(ctx) {
-        const {body} = ctx.request
-        ctx.body = {body}
+        ctx.status = 201
+        ctx.body = (await (UserDB.create(email, username, first_name, last_name, password))).getInfoUser()
     }
 
     static async signIn(ctx, next) {
@@ -29,6 +28,17 @@ class UsersController {
         })(ctx, next)
     }
 
+
+
+
+
+    static async example(ctx) {
+        const {body} = ctx.request
+        ctx.body = {body}
+    }
+
+
+
     static async createUser(ctx) {
         const {first_name, last_name, active, email, password} = ctx.request.body
 
@@ -37,12 +47,7 @@ class UsersController {
 
     }
 
-    static async create(ctx) {
-        const {email, username, first_name, last_name, password } = ctx.request.body
 
-        ctx.status = 201
-        ctx.body = (await (UserDB.create(email, username, first_name, last_name, password))).getInfoUser()
-    }
 
     static async refresh(ctx) {
         const token = ctx.headers.authorization.split(' ')[1]

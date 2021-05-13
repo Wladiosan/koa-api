@@ -29,19 +29,24 @@ exports.create = {
             first_name: joi.string().min(3).required(),
             last_name: joi.string().min(3).required(),
             password: joi.string().min(6).required()
-        },
-        output: {
-            201: {
-                body: {
-                    email: joi.string().email({minDomainSegments: 2, tlds: {allow: ['com', 'net', 'ru']}}),
-                    username: joi.string().min(3).required(),
-                    first_name: joi.string().min(3).required(),
-                    last_name: joi.string().min(3).required()
-                }
-            }
         }
     }
 }
+
+exports.signIn = {
+    validate: {
+        type: 'json',
+        body: {
+            email: joi.string().email({minDomainSegments: 2, tlds: {allow: ['com', 'net', 'ru']}}),
+            password: joi.string().min(6).required()
+        }
+    }
+}
+
+
+
+
+
 
 
 exports.example = {
@@ -53,15 +58,7 @@ exports.example = {
     }
 }
 
-exports.signIn = {
-    validate: {
-        type: 'json',
-        body: {
-            email: joi.string().required(),
-            password: joi.string().min(6).required()
-        }
-    }
-}
+
 
 exports.signUp = {
     validate: {
