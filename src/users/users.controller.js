@@ -6,18 +6,20 @@ const {UserDB} = require('./models/UserDB')
 
 class UsersController {
 
+    //
     static async checkBeforeRegistration(ctx) {
         const {email, username, first_name, last_name} = ctx.request.body
         ctx.body = await UserDB.checkBeforeRegistration(email, username, first_name, last_name)
     }
 
+    //create
     static async create(ctx) {
         const {email, username, first_name, last_name, password } = ctx.request.body
-
         ctx.status = 201
-        ctx.body = (await (UserDB.create(email, username, first_name, last_name, password))).getInfoUser()
+        ctx.body = (await (UserDB.create(email, username, first_name, last_name, password))).getInfo()
     }
 
+    //sign-in
     static async signIn(ctx, next) {
         await passport.authenticate('local', (err, user) => {
             if (user) ctx.body = user
@@ -27,6 +29,27 @@ class UsersController {
             }
         })(ctx, next)
     }
+
+    //profile
+    static async getProfile(ctx) {
+        console.log('ctx: ',ctx)
+        const {email} = ctx.state.user
+        const user = (await UserDB.getUserByEmail(email)).getInfo()
+        ctx.status = 200
+        ctx.body = user
+    }
+
+    //profile //profile/account
+    static async updateProfile(ctx) {
+        console.log('Back hello')
+        const {body} = ctx.request.body
+        const user = (await UserDB.updateProfile(body))
+        ctx.status = 200
+        ctx.body = {user}
+    }
+
+
+
 
     static async admin(ctx) {
         const users = (await UserDB.admin()).map(user => user.getInfoAdmin())

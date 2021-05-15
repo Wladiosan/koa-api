@@ -10,7 +10,13 @@ router.post('/', UserValidator.checkBeforeRegistration , UsersController.checkBe
 router.post('create', UserValidator.create, UsersController.create)
 router.post('sign-in', UserValidator.signIn, UsersController.signIn)
 
+router.get('profile', passport.authenticate('jwt', {session: false}), UsersController.getProfile)
+router.put('profile/update', passport.authenticate('jwt', {session: false}), UsersController.updateProfile)
+
+
 router.get('admin', UsersController.admin)
+
+
 
 router.get('admin', passport.authenticate('jwt', {session: false}), UsersController.userList)
 
