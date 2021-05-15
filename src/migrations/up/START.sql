@@ -12,9 +12,9 @@ START TRANSACTION;
         gender VARCHAR DEFAULT 'Select',
         photo VARCHAR,
         country VARCHAR DEFAULT 'Ukraine',
-        stack VARCHAR DEFAULT 'Select',,
+        stack VARCHAR DEFAULT 'Select',
         phone VARCHAR DEFAULT '+380',
-        rate VARCHAR
+        rate INT DEFAULT 0
     );
 
     ALTER TABLE "users" ADD CONSTRAINT users_email UNIQUE (email);

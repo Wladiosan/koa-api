@@ -74,7 +74,7 @@ class UserDB {
                 category = '${body.category}',
                 gender = '${body.gender}',
                 photo = '${body.photo}',
-                country = '${body.photo}',
+                country = '${body.country}',
                 stack = '${body.stack}',
                 phone = '${body.phone}',
                 rate = '${body.rate}'
