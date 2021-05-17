@@ -20,10 +20,6 @@ const port = process.env.PORT || 3000
 router.use('/', require('./src/users/users.router'))
 app.use(router.middleware())
 
-app.use((ctx) => {
-    ctx.body = 'It is work'
-})
-
 app.listen(port, () => {
     console.log(`SERVER IS STARTING AT PORT: ${port}`)
 })

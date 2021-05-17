@@ -19,7 +19,7 @@ class UsersController {
 
     //create
     static async create(ctx) {
-        const {email, username, first_name, last_name, password } = ctx.request.body
+        const {email, username, first_name, last_name, password} = ctx.request.body
         ctx.status = 201
         ctx.body = (await (UserDB.create(email, username, first_name, last_name, password))).getInfo()
     }
@@ -27,10 +27,15 @@ class UsersController {
     //sign-in
     static async signIn(ctx, next) {
         await passport.authenticate('local', (err, user) => {
-            if (user) ctx.body = user
-            else {
+            if (user) {
+                ctx.body = user
+            } else {
                 ctx.status = 400
-                if (err) ctx.body = {error: err}
+                if (err) {
+                    ctx.body = {
+                        error: err
+                    }
+                }
             }
         })(ctx, next)
     }
@@ -54,7 +59,6 @@ class UsersController {
     //reset-pass
     static async resetPass(ctx) {
         const {body} = ctx.request.body
-        console.log(body)
         const user = (await UserDB.resetPass(body)).getInfo()
         ctx.status = 200
         ctx.body = {user}
@@ -68,7 +72,7 @@ class UsersController {
     }
 
     //search
-    static async userFilterList(ctx){
+    static async userFilterList(ctx) {
         const {body} = ctx.request.body
         const users = (await UserDB.getUserFilterList(body)).map(i => i.getInfo(true))
         ctx.status = 200
@@ -87,8 +91,6 @@ class UsersController {
     static async refresh(ctx) {
         const token = ctx.headers.authorization.split(' ')[1]
         const decodedToken = jwt.decode(token, 'super_secret_refresh')
-
-        console.log(decodedToken)
 
         if (decodedToken.expiresIn <= new Date().getTime()) {
             const error = new Error('Refresh token expired, please sign in into your account.')
