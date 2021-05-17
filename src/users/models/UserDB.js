@@ -91,6 +91,7 @@ class UserDB {
     }
 
     static async updateProfile(body) {
+        console.log('start DB', body)
         const userResponse = await db.query(`
             UPDATE "users" SET 
                 first_name = '${body.first_name}',

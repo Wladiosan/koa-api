@@ -81,12 +81,15 @@ class UsersController {
         }
     }
 
+    //admin
     static async admin(ctx) {
         const users = (await UserDB.admin()).map(i => i.getInfoAdmin(true))
         ctx.body = {
             users
         }
     }
+
+
 
     static async refresh(ctx) {
         const token = ctx.headers.authorization.split(' ')[1]
