@@ -37,18 +37,6 @@ class User {
         return responseData
     }
 
-    /*getInfo(idFlag = false) {
-        const responseData = {
-            email: this.email,
-            first_name: this.first_name,
-            last_name: this.last_name
-        }
-
-        if (idFlag) responseData.id = this._id
-
-        return responseData
-    }*/
-
     getInfoUser(idFlag = false) {
         const responseDate = {
             email: this.email,

@@ -43,13 +43,37 @@ class UsersController {
     static async updateProfile(ctx) {
         console.log('Back hello')
         const {body} = ctx.request.body
-        const user = (await UserDB.updateProfile(body))
+        const user = (await UserDB.updateProfile(body)).getInfo()
         ctx.status = 200
         ctx.body = {user}
     }
 
+    //reset-pass
+    static async resetPass(ctx) {
+        console.log('Back hello')
+        const {body} = ctx.request.body
+        console.log(body)
+        const user = (await UserDB.resetPass(body)).getInfo()
+        ctx.status = 200
+        ctx.body = {user}
+    }
 
+    //search
+    static async userList(ctx) {
+        const users = (await UserDB.getUserList()).map(i => i.getInfo(true))
+        ctx.status = 200
+        ctx.body = {users}
+    }
 
+    //search
+    static async userFilterList(ctx){
+        const {body} = ctx.request.body
+        const users = (await UserDB.getUserFilterList(body)).map(i => i.getInfo(true))
+        ctx.status = 200
+        ctx.body = {
+            users
+        }
+    }
 
     static async admin(ctx) {
         const users = (await UserDB.admin()).map(user => user.getInfoAdmin())
@@ -57,10 +81,6 @@ class UsersController {
             users
         }
     }
-
-
-
-
 
     static async refresh(ctx) {
         const token = ctx.headers.authorization.split(' ')[1]
@@ -100,12 +120,6 @@ class UsersController {
         }
     }
 
-    static async userList(ctx) {
-        const users = (await UserDB.userList()).map(user => user.getInfo())
-        ctx.body = {
-            users
-        }
-    }
 }
 
 module.exports = {
