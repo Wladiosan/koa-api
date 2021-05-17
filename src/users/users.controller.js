@@ -6,6 +6,11 @@ const {UserDB} = require('./models/UserDB')
 
 class UsersController {
 
+    static async healthCheck(ctx) {
+        ctx.status = 200
+        ctx.body = {}
+    }
+
     //
     static async checkBeforeRegistration(ctx) {
         const {email, username, first_name, last_name} = ctx.request.body

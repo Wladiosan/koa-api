@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Wladiosan/koa-api#readme",
   "dependencies": {
     "@koa/cors": "^3.1.0",
+    "aws-sdk": "^2.907.0",
     "joi": "^17.4.0",
     "jwt-simple": "^0.5.6",
     "koa": "^2.13.1",

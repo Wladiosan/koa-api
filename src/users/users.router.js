@@ -7,6 +7,7 @@ const UserValidator = require('./users.validator')
 const router = new Router()
 
 router.post('/', UserValidator.checkBeforeRegistration , UsersController.checkBeforeRegistration)
+router.get('/', UsersController.healthCheck)
 router.post('create', UserValidator.create, UsersController.create)
 router.post('sign-in', UserValidator.signIn, UsersController.signIn)
 router.put('reset-pass', passport.authenticate('jwt', {session: false}), UsersController.resetPass)
