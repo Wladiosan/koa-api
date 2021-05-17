@@ -50,11 +50,12 @@ class User {
 
     getInfoAdmin(idFlag = false) {
         const responseData = {
-            email: this.email,
-            first_name: this.first_name,
-            last_name: this.last_name,
-            country: this.country,
-            status: this.status
+            email: this._email,
+            first_name: this._first_name,
+            last_name: this._last_name,
+            country: this._country,
+            category: this._category,
+            stack: this._stack
         }
 
         if (idFlag) responseData.id = this._id

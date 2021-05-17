@@ -286,11 +286,12 @@ class UserDB {
     }*/
 
 
-    /*static async admin() {
+    static async admin() {
+        console.log('userDB-admin')
         const userListResponse = await db.query('SELECT * FROM "users"')
         const users = userListResponse.rows.map(userDb => new User(userDb))
         return users
-    }*/
+    }
 }
 
 module.exports = {UserDB}

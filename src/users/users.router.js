@@ -15,8 +15,8 @@ router.get('profile', passport.authenticate('jwt', {session: false}), UsersContr
 router.put('profile/update', passport.authenticate('jwt', {session: false}), UsersController.updateProfile)
 router.get('search', passport.authenticate('jwt', {session: false}), UsersController.userList)
 router.put('search', passport.authenticate('jwt', {session: false}), UsersController.userFilterList)
+router.get('admin', UsersController.admin)
 
-/*router.get('admin', UsersController.admin)*/
 /*router.get('admin', passport.authenticate('jwt', {session: false}), UsersController.userList)*/
 /*router.get('/refresh/token', UsersController.refresh)*/
 /*router.get('/profile', passport.authenticate('jwt', {session: false}), UsersController.profile)*/

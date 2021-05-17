@@ -8,7 +8,7 @@ class UsersController {
 
     static async healthCheck(ctx) {
         ctx.status = 200
-        ctx.body = {body: 'hello'}
+        ctx.body = 'healthCheck'
     }
 
     //
@@ -37,7 +37,6 @@ class UsersController {
 
     //profile
     static async getProfile(ctx) {
-        console.log('ctx: ',ctx)
         const {email} = ctx.state.user
         const user = (await UserDB.getUserByEmail(email)).getInfo()
         ctx.status = 200
@@ -46,7 +45,6 @@ class UsersController {
 
     //profile //profile/account
     static async updateProfile(ctx) {
-        console.log('Back hello')
         const {body} = ctx.request.body
         const user = (await UserDB.updateProfile(body)).getInfo()
         ctx.status = 200
@@ -55,7 +53,6 @@ class UsersController {
 
     //reset-pass
     static async resetPass(ctx) {
-        console.log('Back hello')
         const {body} = ctx.request.body
         console.log(body)
         const user = (await UserDB.resetPass(body)).getInfo()
@@ -81,7 +78,7 @@ class UsersController {
     }
 
     static async admin(ctx) {
-        const users = (await UserDB.admin()).map(user => user.getInfoAdmin())
+        const users = (await UserDB.admin()).map(i => i.getInfoAdmin(true))
         ctx.body = {
             users
         }
@@ -118,13 +115,6 @@ class UsersController {
             refreshTokenExpirationDate: refreshToken.expiresIn
         }
     }
-
-    static async profile(ctx) {
-        ctx.body = {
-            user: ctx.state.user
-        }
-    }
-
 }
 
 module.exports = {
