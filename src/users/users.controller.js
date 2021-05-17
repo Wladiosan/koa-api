@@ -8,7 +8,7 @@ class UsersController {
 
     static async healthCheck(ctx) {
         ctx.status = 200
-        ctx.body = {}
+        ctx.body = {body: 'hello'}
     }
 
     //
