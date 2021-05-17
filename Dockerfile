@@ -1,4 +1,4 @@
-FROM node:13
+FROM 210878070641.dkr.ecr.eu-central-1.amazonaws.com/node:13
 
 WORKDIR /app
 
