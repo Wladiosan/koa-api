@@ -123,8 +123,8 @@ class UsersController {
 
     static async removeUser(ctx) {
         const {body} = ctx.request
-        console.log(body)
         const newUserList = (await UserDB.deleteUser(body)).map(i => i.getInfoAdmin(true))
+        console.log('newUserList: ', newUserList)
         ctx.status = 200
         ctx.body = {
             newUserList

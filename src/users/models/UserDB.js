@@ -291,9 +291,8 @@ class UserDB {
     }
 
     static async deleteUser(body) {
-        const userResponse = await db.query(
-            `DELETE FROM users WHERE id = '${body.id}';
-            SELECT * FROM users WHERE id != '${body.id}';`)
+        await db.query(`DELETE FROM users WHERE id = '${body.id}';`)
+        const userResponse = await db.query(`SELECT * FROM users WHERE id != '${body.id}';`)
         return userResponse.rows.map(userDb => new User(userDb))
     }
 }
