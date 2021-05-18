@@ -6,6 +6,7 @@ const {UserDB} = require('./models/UserDB')
 
 class UsersController {
 
+    // start
     static async healthCheck(ctx) {
         ctx.status = 200
         ctx.body = 'healthCheck'
@@ -90,7 +91,6 @@ class UsersController {
     }
 
 
-
     static async refresh(ctx) {
         const token = ctx.headers.authorization.split(' ')[1]
         const decodedToken = jwt.decode(token, 'super_secret_refresh')
@@ -118,6 +118,16 @@ class UsersController {
             accessTokenExpirationDate: accessToken.expiresIn,
             refreshToken: jwt.encode(refreshToken, 'super_secret_refresh'),
             refreshTokenExpirationDate: refreshToken.expiresIn
+        }
+    }
+
+    static async removeUser(ctx) {
+        const {body} = ctx.request
+        console.log(body)
+        const newUserList = (await UserDB.deleteUser(body)).map(i => i.getInfoAdmin(true))
+        ctx.status = 200
+        ctx.body = {
+            newUserList
         }
     }
 }

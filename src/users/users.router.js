@@ -9,6 +9,7 @@ const router = new Router()
 router.post('/', UserValidator.checkBeforeRegistration , UsersController.checkBeforeRegistration)
 router.post('create', UserValidator.create, UsersController.create)
 router.post('sign-in', UserValidator.signIn, UsersController.signIn)
+router.post('admin', UsersController.removeUser)
 
 router.put('reset-pass', passport.authenticate('jwt', {session: false}), UsersController.resetPass)
 router.put('profile/update', passport.authenticate('jwt', {session: false}), UsersController.updateProfile)

@@ -122,14 +122,12 @@ class UserDB {
     }
 
     static async getUserList() {
-        console.log('123')
         const userResponse = await db.query(`SELECT * FROM "users"`)
         const users = userResponse.rows.map(i => new User(i))
         return users
     }
 
     static async getUserFilterList({country, category, stack, rate}) {
-        console.log('start query', country)
         if (country !== 'All' && category === 'All' && stack === 'All' && rate === 'All') {
             const response = await db.query(`SELECT * from "users" WHERE country = '${country}'`)
             return response.rows.map(i => new User(i))
@@ -288,10 +286,15 @@ class UserDB {
 
 
     static async admin() {
-        console.log('userDB-admin')
-        const userListResponse = await db.query('SELECT * FROM "users"')
-        const users = userListResponse.rows.map(userDb => new User(userDb))
-        return users
+        const userResponse = await db.query('SELECT * FROM "users"')
+        return userResponse.rows.map(userDb => new User(userDb))
+    }
+
+    static async deleteUser(body) {
+        const userResponse = await db.query(
+            `DELETE FROM users WHERE id = '${body.id}';
+            SELECT * FROM users WHERE id != '${body.id}';`)
+        return userResponse.rows.map(userDb => new User(userDb))
     }
 }
 
